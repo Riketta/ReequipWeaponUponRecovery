@@ -24,7 +24,7 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] Pawn ({pawn.Name}); Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}. Skipping function call!");
+            DebugLog.Log($"[{Prefix}] Pawn ({pawn.Name}); Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}.");
             DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
 
             // Bypass "if (HasAnything() && pawn.Downed && !pawn.GetPosture().InBed()) { <...> DropAllEquipment(pawn.Position); }" if pawn player controlled.
