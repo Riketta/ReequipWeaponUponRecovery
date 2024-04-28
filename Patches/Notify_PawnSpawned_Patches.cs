@@ -30,6 +30,7 @@ namespace ReequipWeaponUponRecovery.Patches
             // Bypass "if (HasAnything() && pawn.Downed && !pawn.GetPosture().InBed()) { <...> DropAllEquipment(pawn.Position); }" if pawn player controlled.
             if (pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer) // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
             {
+                // TODO: drop loot on pawn death.
                 DebugLog.Log($"[{Prefix}] Skipping method call!");
                 return false;
             }
