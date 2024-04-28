@@ -31,6 +31,7 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer) // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
             {
                 // TODO: drop loot on pawn death.
+                // TODO: check for pawn.kindDef.destroyGearOnDrop case and respect it.
                 DebugLog.Log($"[{Prefix}] Skipping method call!");
                 return false;
             }
