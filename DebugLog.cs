@@ -13,7 +13,7 @@ namespace ReequipWeaponUponRecovery
         public static void Log(string message)
         {
 #if DEBUG
-            FileLog.Log($"[{DateTime.Now:s}] {message}");
+            FileLog.Log($"[{DateTime.Now:HH:mm:ss.fffffff}] {message}");
 #endif
         }
 
