@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "About", "About", "{74A5EB6A-49FE-4346-9C0D-7F069937A310}"
 	ProjectSection(SolutionItems) = preProject
 		About\About.xml = About\About.xml
+		About\Preview.png = About\Preview.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A3A03C8-91D5-4918-BB8D-0E867F6BB723}"
