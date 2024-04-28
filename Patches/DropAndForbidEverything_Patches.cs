@@ -39,6 +39,7 @@ namespace ReequipWeaponUponRecovery.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> SkipBedValidation(IEnumerable<CodeInstruction> instructions)
         {
+            // TODO: validate that pawn player controlled and belongs to player's faction.
             DebugLog.Log($"Applying SkipBedValidation Transpiler Patch.");
 
             var opcodes = new List<CodeInstruction>(instructions);
