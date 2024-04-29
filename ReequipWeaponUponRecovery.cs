@@ -15,7 +15,7 @@ namespace ReequipWeaponUponRecovery
 {
     public class ReequipWeaponUponRecovery : ModBase
     {
-        public static readonly string PackageID = $"Riketta_{nameof(ReequipWeaponUponRecovery)}";
+        public static readonly string PackageID = $"Riketta.{nameof(ReequipWeaponUponRecovery)}";
 
         protected override bool HarmonyAutoPatch => true;
         public override string LogIdentifier => nameof(ReequipWeaponUponRecovery);
