@@ -33,7 +33,7 @@ namespace ReequipWeaponUponRecovery
         public override void StaticInitialize()
         {
             Logger.Message($"{nameof(ReequipWeaponUponRecovery)} patches applied.");
-            HarmonyLog.Log($"[{HarmonyInst.Id}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+            HarmonyLog.Log($"[{PackageID}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
         }
 
         public override void SettingsChanged()
