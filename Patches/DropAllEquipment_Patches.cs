@@ -40,13 +40,13 @@ namespace ReequipWeaponUponRecovery.Patches
 
                 if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution! Colonis will keep its weapon.");
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Colonis will keep its weapon.");
                     return false;
                 }
 
                 if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
                 {
-                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its weapon.");
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its weapon.");
                     return false;
                 }
             }
