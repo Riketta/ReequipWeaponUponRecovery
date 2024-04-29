@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using HugsLib;
+using HugsLib.Utils;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -10,17 +12,33 @@ using Verse;
 
 namespace ReequipWeaponUponRecovery
 {
-    [StaticConstructorOnStartup]
-    public class ReequipWeaponUponRecovery
+    public class ReequipWeaponUponRecovery : ModBase
     {
-        public static readonly string HarmonyID = $"Riketta_{nameof(ReequipWeaponUponRecovery)}";
+        public static readonly string PackageID = $"Riketta_{nameof(ReequipWeaponUponRecovery)}";
 
-        static ReequipWeaponUponRecovery()
+        protected override bool HarmonyAutoPatch => true;
+        public override string LogIdentifier => nameof(ReequipWeaponUponRecovery);
+        public override string SettingsIdentifier => nameof(ReequipWeaponUponRecovery);
+
+        static ReequipWeaponUponRecovery() { }
+
+        ReequipWeaponUponRecovery() : base()
         {
-            var harmony = new Harmony(HarmonyID);
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
 
-            DebugLog.Log($"[{HarmonyID}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+        public override void EarlyInitialize()
+        {
+        }
+
+        public override void StaticInitialize()
+        {
+            Logger.Message($"[{HarmonyInst.Id}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+            HarmonyLog.Log($"[{HarmonyInst.Id}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+        }
+
+        public override void SettingsChanged()
+        {
+            base.SettingsChanged();
         }
     }
 }
