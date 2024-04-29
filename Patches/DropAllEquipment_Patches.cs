@@ -33,8 +33,8 @@ namespace ReequipWeaponUponRecovery.Patches
 #endif
 
             // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-            if ((GlobalState.KeepOthersPawnWeapon || (GlobalState.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
-                (!pawn.Dead || GlobalState.KeepWeaponAndInventoryForDeadPawn))
+            if ((GlobalState.Config.KeepOthersPawnWeapon || (GlobalState.Config.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
+                (!pawn.Dead || GlobalState.Config.KeepWeaponAndInventoryForDeadPawn))
             {
                 // Pretty slow execution (reflections) but in this case it is should be okay due to rare checks - only when unit downed/stripped.
                 var callerMethod = new StackTrace().GetFrame(2).GetMethod();
