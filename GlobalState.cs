@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HugsLib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ReequipWeaponUponRecovery
 {
     internal class GlobalState
     {
-        public static Config Config { get; set; } = new Config();
+        public static ModSettings ModSettings { get; set; }
 
         /// <summary>
         /// Mark that next DropAllEquipment call can be prevented if necessary.
@@ -20,7 +21,7 @@ namespace ReequipWeaponUponRecovery
         /// Not valid (should be executed):
         /// "Pawn.Strip -> Pawn_EquipmentTracker.DropAllEquipment".
         /// </summary>
-        public static bool CanSkipNextCallOfDropAllEquipment { get; set;}
+        public static bool CanSkipNextCallOfDropAllEquipment { get; set; }
 
         /// <summary>
         /// Mark that next DropDropAllNearPawn call can be prevented if necessary.
@@ -32,6 +33,11 @@ namespace ReequipWeaponUponRecovery
         /// "Pawn.Strip -> Pawn_InventoryTracker.DropAllNearPawn";
         /// "CaravanEnterMapUtility.DropAllInventory -> Pawn_InventoryTracker.DropAllNearPawn".
         /// </summary>
-        public static bool CanSkipNextCallOfDropDropAllNearPawn { get; set;}
+        public static bool CanSkipNextCallOfDropDropAllNearPawn { get; set; }
+
+        /// <summary>
+        /// HugsLib logger.
+        /// </summary>
+        public static ModLogger Logger { get; set; }
     }
 }

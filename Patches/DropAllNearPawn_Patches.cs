@@ -24,8 +24,8 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
-            DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
+            HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+            HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
             DebugLog.DumpStackTrace();
 #endif
@@ -34,11 +34,17 @@ namespace ReequipWeaponUponRecovery.Patches
             {
                 GlobalState.CanSkipNextCallOfDropDropAllNearPawn = false;
 
-                // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-                if ((GlobalState.Config.KeepOthersPawnInventory || (GlobalState.Config.KeepOthersPawnInventory && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
-                    (!pawn.Dead || GlobalState.Config.KeepWeaponAndInventoryForDeadPawn))
+                bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
+
+                if (isColonist && GlobalState.ModSettings.KeepColonistsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    DebugLog.Log($"[{Prefix}] Preventing original method execution!");
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Colonis will keep its inventory.");
+                    return false;
+                }
+
+                if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                {
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its inventory.");
                     return false;
                 }
             }

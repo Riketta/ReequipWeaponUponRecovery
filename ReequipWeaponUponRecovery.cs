@@ -1,4 +1,7 @@
 ﻿using HarmonyLib;
+using HugsLib;
+using HugsLib.Settings;
+using HugsLib.Utils;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -10,17 +13,46 @@ using Verse;
 
 namespace ReequipWeaponUponRecovery
 {
-    [StaticConstructorOnStartup]
-    public class ReequipWeaponUponRecovery
+    public class ReequipWeaponUponRecovery : ModBase
     {
-        public static readonly string HarmonyID = $"Riketta_{nameof(ReequipWeaponUponRecovery)}";
+        public static readonly string PackageID = $"Riketta.{nameof(ReequipWeaponUponRecovery)}";
 
-        static ReequipWeaponUponRecovery()
+        protected override bool HarmonyAutoPatch => true;
+        public override string LogIdentifier => nameof(ReequipWeaponUponRecovery);
+        public override string SettingsIdentifier => nameof(ReequipWeaponUponRecovery);
+
+        static ReequipWeaponUponRecovery() { }
+
+        ReequipWeaponUponRecovery() : base()
         {
-            var harmony = new Harmony(HarmonyID);
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
 
-            DebugLog.Log($"[{HarmonyID}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+        public override void EarlyInitialize()
+        {
+        }
+
+        public override void StaticInitialize()
+        {
+            GlobalState.Logger = Logger;
+
+            Logger.Trace($"{nameof(ReequipWeaponUponRecovery)} patches applied.");
+            HarmonyLog.Log($"[{PackageID}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
+        }
+
+        public override void DefsLoaded()
+        {
+            GlobalState.ModSettings = new ModSettings(Settings);
+        }
+
+        public override void SettingsChanged()
+        {
+            Logger.Trace("Settings updated:");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepColonistsWeapons)} = {GlobalState.ModSettings.KeepColonistsWeapons}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepColonistsInventory)} = {GlobalState.ModSettings.KeepColonistsInventory}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists)} = {GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsWeapons)} = {GlobalState.ModSettings.KeepOtherPawnsWeapons}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsInventory)} = {GlobalState.ModSettings.KeepOtherPawnsInventory}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns)} = {GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns}.");
         }
     }
 }

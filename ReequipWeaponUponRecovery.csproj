@@ -38,8 +38,8 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="DebugLog.cs" />
+    <Compile Include="ModSettings.cs" />
+    <Compile Include="HarmonyLog.cs" />
     <Compile Include="GlobalState.cs" />
     <Compile Include="Patches\DropAllEquipment_Patches.cs" />
     <Compile Include="Patches\DropAllNearPawn_Patches.cs" />
@@ -55,6 +55,9 @@
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="UnlimitedHugs.Rimworld.HugsLib">
+      <Version>11.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

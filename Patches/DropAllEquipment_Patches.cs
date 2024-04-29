@@ -25,9 +25,9 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
-            DebugLog.Log($"[{Prefix}] Forbid: {forbid}; Remember Primary: {rememberPrimary}.");
-            DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
+            HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+            HarmonyLog.Log($"[{Prefix}] Forbid: {forbid}; Remember Primary: {rememberPrimary}.");
+            HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
             DebugLog.DumpStackTrace();
 #endif
@@ -36,11 +36,17 @@ namespace ReequipWeaponUponRecovery.Patches
             {
                 GlobalState.CanSkipNextCallOfDropAllEquipment = false;
 
-                // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-                if ((GlobalState.Config.KeepOthersPawnWeapon || (GlobalState.Config.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
-                    (!pawn.Dead || GlobalState.Config.KeepWeaponAndInventoryForDeadPawn))
+                bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
+
+                if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    DebugLog.Log($"[{Prefix}] Preventing original method execution!");
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Colonis will keep its weapon.");
+                    return false;
+                }
+
+                if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                {
+                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its weapon.");
                     return false;
                 }
             }
