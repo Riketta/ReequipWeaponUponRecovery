@@ -24,5 +24,18 @@ namespace ReequipWeaponUponRecovery
 
             return $"{className}.{method.Name}()";
         }
+
+        public static void DumpStackTrace()
+        {
+#if DEBUG
+            var stackTrace = new StackTrace();
+            Log($"Stack Trace:");
+            for (int i = 0; i < stackTrace.FrameCount; i++)
+            {
+                var callerMethod = stackTrace.GetFrame(i).GetMethod();
+                Log($"  > [{i}] {$"{callerMethod.ReflectedType.Namespace}.{callerMethod.ReflectedType.Name}.{callerMethod.Name}"}");
+            }
+#endif
+        }
     }
 }
