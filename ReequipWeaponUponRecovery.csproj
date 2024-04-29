@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugLog.cs" />
+    <Compile Include="GlobalState.cs" />
     <Compile Include="Patches\DropAllEquipment_Patches.cs" />
     <Compile Include="Patches\MakeDowned_Patches.cs" />
     <Compile Include="Patches\DropAndForbidEverything_Patches.cs" />

@@ -18,21 +18,6 @@ namespace ReequipWeaponUponRecovery.Patches
     {
         private const string Prefix = "Pawn_EquipmentTracker.DropAllEquipment";
 
-        // TODO: move to customizable settings.
-        private const bool KeepPlayersPawnWeapon = true;
-        private const bool KeepPlayersPawnInventory = true; // TODO: move to DropAllNearPawn patches.
-
-        /// <summary>
-        /// Keep weapons in inventory for non-player's pawns. For example: enemy human raids - OP for tribals.
-        /// </summary>
-        private const bool KeepOthersPawnWeapon = true;
-        private const bool KeepOthersPawnInventory = true; // TODO: move to DropAllNearPawn patches.
-
-        /// <summary>
-        /// Keep weapons and inventory for dead pawns or not and drop everything on death.
-        /// </summary>
-        private const bool KeepWeaponAndInventoryForDeadPawn = true;
-
         [HarmonyPrefix]
         public static bool DropAllEquipment(Pawn_EquipmentTracker __instance, bool forbid, bool rememberPrimary)
         {
@@ -48,7 +33,8 @@ namespace ReequipWeaponUponRecovery.Patches
 #endif
 
             // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-            if ((KeepOthersPawnWeapon || (KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) && (!pawn.Dead || KeepWeaponAndInventoryForDeadPawn))
+            if ((GlobalState.KeepOthersPawnWeapon || (GlobalState.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
+                (!pawn.Dead || GlobalState.KeepWeaponAndInventoryForDeadPawn))
             {
                 // Pretty slow execution (reflections) but in this case it is should be okay due to rare checks - only when unit downed/stripped.
                 var callerMethod = new StackTrace().GetFrame(2).GetMethod();
