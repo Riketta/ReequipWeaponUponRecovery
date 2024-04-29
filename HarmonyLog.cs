@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReequipWeaponUponRecovery
 {
-    internal class DebugLog
+    internal class HarmonyLog
     {
         public static void Log(string message)
         {

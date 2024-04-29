@@ -25,9 +25,9 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
-            DebugLog.Log($"[{Prefix}] Forbid: {forbid}; Remember Primary: {rememberPrimary}.");
-            DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
+            HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+            HarmonyLog.Log($"[{Prefix}] Forbid: {forbid}; Remember Primary: {rememberPrimary}.");
+            HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
             DebugLog.DumpStackTrace();
 #endif
@@ -40,7 +40,7 @@ namespace ReequipWeaponUponRecovery.Patches
                 if ((GlobalState.Config.KeepOthersPawnWeapon || (GlobalState.Config.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
                     (!pawn.Dead || GlobalState.Config.KeepWeaponAndInventoryForDeadPawn))
                 {
-                    DebugLog.Log($"[{Prefix}] Preventing original method execution!");
+                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution!");
                     return false;
                 }
             }
