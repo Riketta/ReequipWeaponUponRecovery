@@ -37,8 +37,9 @@ namespace ReequipWeaponUponRecovery.Patches
                 GlobalState.CanSkipNextCallOfDropAllEquipment = false;
 
                 // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-                if ((GlobalState.Config.KeepOthersPawnWeapon || (GlobalState.Config.KeepPlayersPawnWeapon && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer)) &&
-                    (!pawn.Dead || GlobalState.Config.KeepWeaponAndInventoryForDeadPawn))
+                if ((GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns)
+                    || (GlobalState.ModSettings.KeepColonistsWeapons && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer))
+                    && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
                     HarmonyLog.Log($"[{Prefix}] Preventing original method execution!");
                     return false;

@@ -38,7 +38,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
+    <Compile Include="ModSettings.cs" />
     <Compile Include="HarmonyLog.cs" />
     <Compile Include="GlobalState.cs" />
     <Compile Include="Patches\DropAllEquipment_Patches.cs" />

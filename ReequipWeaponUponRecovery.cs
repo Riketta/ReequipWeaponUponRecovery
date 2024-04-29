@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using HugsLib;
+using HugsLib.Settings;
 using HugsLib.Utils;
 using RimWorld;
 using System;
@@ -36,9 +37,20 @@ namespace ReequipWeaponUponRecovery
             HarmonyLog.Log($"[{PackageID}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
         }
 
+        public override void DefsLoaded()
+        {
+            GlobalState.ModSettings = new ModSettings(Settings);
+        }
+
         public override void SettingsChanged()
         {
-            base.SettingsChanged();
+            Logger.Trace("Settings updated:");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepColonistsWeapons)} = {GlobalState.ModSettings.KeepColonistsWeapons}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepColonistsInventory)} = {GlobalState.ModSettings.KeepColonistsInventory}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists)} = {GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsWeapons)} = {GlobalState.ModSettings.KeepOtherPawnsWeapons}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsInventory)} = {GlobalState.ModSettings.KeepOtherPawnsInventory}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns)} = {GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns}.");
         }
     }
 }

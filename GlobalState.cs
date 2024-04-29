@@ -8,7 +8,7 @@ namespace ReequipWeaponUponRecovery
 {
     internal class GlobalState
     {
-        public static Config Config { get; set; } = new Config();
+        public static ModSettings ModSettings { get; set; }
 
         /// <summary>
         /// Mark that next DropAllEquipment call can be prevented if necessary.
