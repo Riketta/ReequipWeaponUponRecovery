@@ -13,15 +13,15 @@ namespace ReequipWeaponUponRecovery.Patches
 {
     /// <summary>
     /// public void DropAndForbidEverything(bool keepInventoryAndEquipmentIfInBed = false, bool rememberPrimary = false).
+    /// Caller of Pawn_EquipmentTracker.DropAllEquipment and Pawn_InventoryTracker.DropAllNearPawn.
     /// </summary>
     [HarmonyPatch(typeof(Pawn), "DropAndForbidEverything")]
     internal class DropAndForbidEverything_Patch
     {
         private const string Prefix = "Pawn.DropAndForbidEverything";
 
-#if DEBUG
         [HarmonyPrefix]
-        public static bool LogDropAndForbidEverything(Pawn __instance, ref bool keepInventoryAndEquipmentIfInBed, ref bool rememberPrimary)
+        public static bool DropAndForbidEverything(Pawn __instance, ref bool keepInventoryAndEquipmentIfInBed, ref bool rememberPrimary)
         {
             var pawn = __instance;
             if (pawn is null)
@@ -29,8 +29,10 @@ namespace ReequipWeaponUponRecovery.Patches
 
             DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Primary: {pawn.equipment?.Primary?.ToStringSafe()}; PrimaryEq: {pawn.equipment?.PrimaryEq?.ToStringSafe()}; Spawned: {pawn.Spawned}; {keepInventoryAndEquipmentIfInBed}; {rememberPrimary}.");
 
+            GlobalState.CanSkipNextCallOfDropAllEquipment = true;
+            GlobalState.CanSkipNextCallOfDropDropAllNearPawn = true;
+
             return true;
         }
-#endif
     }
 }

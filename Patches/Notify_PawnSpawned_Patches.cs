@@ -11,6 +11,7 @@ namespace ReequipWeaponUponRecovery.Patches
 {
     /// <summary>
     /// public void Notify_PawnSpawned().
+    /// Caller of Pawn_EquipmentTracker.DropAllEquipment.
     /// </summary>
     [HarmonyPatch(typeof(Pawn_EquipmentTracker), "Notify_PawnSpawned")]
     internal class Notify_PawnSpawned_Patches
@@ -26,6 +27,8 @@ namespace ReequipWeaponUponRecovery.Patches
 
             DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
             DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
+
+            GlobalState.CanSkipNextCallOfDropAllEquipment = true;
 
             return true;
         }
