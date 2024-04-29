@@ -32,6 +32,8 @@ namespace ReequipWeaponUponRecovery
 
         public override void StaticInitialize()
         {
+            Logger.Message($"ReequipWeaponUponRecovery.PackageID: {ReequipWeaponUponRecovery.PackageID}.");
+            Logger.Message($"HugsLib.ModContentPack.PackageId: {ModContentPack.PackageId}.");
             Logger.Message($"[{HarmonyInst.Id}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
             HarmonyLog.Log($"[{HarmonyInst.Id}] {nameof(ReequipWeaponUponRecovery)} patches applied.");
         }
