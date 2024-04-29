@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HugsLib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,5 +34,10 @@ namespace ReequipWeaponUponRecovery
         /// "CaravanEnterMapUtility.DropAllInventory -> Pawn_InventoryTracker.DropAllNearPawn".
         /// </summary>
         public static bool CanSkipNextCallOfDropDropAllNearPawn { get; set; }
+
+        /// <summary>
+        /// HugsLib logger.
+        /// </summary>
+        public static ModLogger Logger { get; set; }
     }
 }
