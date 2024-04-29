@@ -30,7 +30,6 @@ namespace ReequipWeaponUponRecovery
         /// 
         /// Not valid (should be executed):
         /// "Pawn.Strip -> Pawn_InventoryTracker.DropAllNearPawn";
-        /// "Pawn.Strip -> Pawn_InventoryTracker.DropAllNearPawn";
         /// "CaravanEnterMapUtility.DropAllInventory -> Pawn_InventoryTracker.DropAllNearPawn".
         /// </summary>
         public static bool CanSkipNextCallOfDropDropAllNearPawn { get; set;}
