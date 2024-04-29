@@ -36,12 +36,17 @@ namespace ReequipWeaponUponRecovery.Patches
             {
                 GlobalState.CanSkipNextCallOfDropAllEquipment = false;
 
-                // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-                if ((GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns)
-                    || (GlobalState.ModSettings.KeepColonistsWeapons && pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer))
-                    && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
+                bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
+
+                if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution!");
+                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution! Colonis will keep its weapon.");
+                    return false;
+                }
+
+                if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                {
+                    HarmonyLog.Log($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its weapon.");
                     return false;
                 }
             }
