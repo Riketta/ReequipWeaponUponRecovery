@@ -21,7 +21,8 @@ namespace ReequipWeaponUponRecovery
         public SettingHandle<bool> KeepColonistsInventory;
 
         /// <summary>
-        /// Keep weapons and inventory of player controlled pawns (colonists) with them or drop everything on death.
+        /// Keep weapons (if <see cref="KeepColonistsWeapons"/> set to true) and inventory (if <see cref="KeepColonistsInventory"/> set to true) of player controlled pawns (colonists) with them or drop everything on death.
+        /// This option allows <see cref="KeepColonistsWeapons"/> and <see cref="KeepColonistsInventory"/> to be applied to dead pawns.
         /// </summary>
         public SettingHandle<bool> KeepWeaponsAndInventoryOfDeadColonists;
 
@@ -36,7 +37,8 @@ namespace ReequipWeaponUponRecovery
         public SettingHandle<bool> KeepOtherPawnsInventory;
 
         /// <summary>
-        /// Keep weapons and inventory of non-player's pawns with them or drop everything on death. OP against tibal raids.
+        /// Keep weapons (if <see cref="KeepOtherPawnsWeapons"/> set to true) and inventory (if <see cref="KeepOtherPawnsInventory"/> set to true) of non-player's pawns with them or drop everything on death. OP against tibal raids.
+        /// This option allows <see cref="KeepOtherPawnsWeapons"/> and <see cref="KeepOtherPawnsInventory"/> to be applied to dead pawns.
         /// </summary>
         public SettingHandle<bool> KeepWeaponsAndInventoryOfOtherDeadPawns;
 
@@ -60,7 +62,7 @@ namespace ReequipWeaponUponRecovery
 
             KeepWeaponsAndInventoryOfDeadColonists = settings.GetHandle(nameof(KeepWeaponsAndInventoryOfDeadColonists),
                 "Keep Weapons And Inventory Of Dead Colonists",
-                "Keep weapons and inventory of player controlled pawns (colonists) with them or drop everything on death.",
+                "Keep weapons and inventory (if according options toggled on) of player controlled pawns (colonists) with them or drop everything on death.",
                 true);
 
             KeepOtherPawnsWeapons = settings.GetHandle(nameof(KeepOtherPawnsWeapons),
@@ -75,7 +77,7 @@ namespace ReequipWeaponUponRecovery
 
             KeepWeaponsAndInventoryOfOtherDeadPawns = settings.GetHandle(nameof(KeepWeaponsAndInventoryOfOtherDeadPawns),
                 "Keep Weapons And Inventory Of Other Dead Pawns",
-                "Keep weapons and inventory of non-player's pawns with them or drop everything on death. OP against tibal raids.",
+                "Keep weapons and inventory (if according options toggled on) of non-player's pawns with them or drop everything on death. OP against tibal raids.",
                 true);
         }
     }
