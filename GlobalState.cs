@@ -10,7 +10,9 @@ namespace ReequipWeaponUponRecovery
     {
         public static Config Config { get; set; } = new Config();
 
-        public static bool SkipNextCallOfDropAllEquipment { get; set;}
-        public static bool SkipNextCallOfDropDropAllNearPawn { get; set;}
+        /// <summary>
+        /// Mark that next DropAllEquipment call can be prevented if necessary.
+        public static bool CanSkipNextCallOfDropAllEquipment { get; set;}
+        public static bool CanSkipNextCallOfDropDropAllNearPawn { get; set;}
     }
 }
