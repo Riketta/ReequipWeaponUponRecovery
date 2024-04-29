@@ -27,15 +27,6 @@ namespace ReequipWeaponUponRecovery.Patches
             DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
             DebugLog.Log($"[{Prefix}] Caller: {DebugLog.GetCallingClassAndMethodNames()}.");
 
-            // Bypass "if (HasAnything() && pawn.Downed && !pawn.GetPosture().InBed()) { <...> DropAllEquipment(pawn.Position); }" if pawn player controlled.
-            if (pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer) // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-            {
-                // TODO: drop loot on pawn death.
-                // TODO: check for pawn.kindDef.destroyGearOnDrop case and respect it.
-                DebugLog.Log($"[{Prefix}] Skipping method call!");
-                return false;
-            }
-
             return true;
         }
     }
