@@ -11,7 +11,7 @@ using Verse;
 namespace ReequipWeaponUponRecovery.Patches
 {
     /// <summary>
-    /// public void DropAllEquipment(IntVec3 pos, bool forbid = true, bool rememberPrimary = false)
+    /// public void DropAllEquipment(IntVec3 pos, bool forbid = true, bool rememberPrimary = false).
     /// </summary>
     [HarmonyPatch(typeof(Pawn_EquipmentTracker), "DropAllEquipment")]
     internal class DropAllEquipment_Patches
