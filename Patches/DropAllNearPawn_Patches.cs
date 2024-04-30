@@ -24,8 +24,8 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
-            HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
+            DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+            DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
             HarmonyLog.DumpStackTrace();
 #endif
@@ -38,16 +38,19 @@ namespace ReequipWeaponUponRecovery.Patches
 
                 if (isColonist && GlobalState.ModSettings.KeepColonistsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Colonis will keep its inventory.");
+                    DebugLog.Log($"[{Prefix}] Preventing original method execution! Colonis (\"{pawn.Name?.ToStringShort}\") will keep its inventory. Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
                     return false;
                 }
-
-                if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
                 {
-                    GlobalState.Logger.Trace($"[{Prefix}] Preventing original method execution! Non-player's pawn will keep its inventory.");
+                    DebugLog.Log($"[{Prefix}] Preventing original method execution! Non-player's pawn (\"{pawn.Name?.ToStringShort}\") will keep its inventory. Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
                     return false;
                 }
+                else
+                    DebugLog.Log($"[{Prefix}] Original method will be executed. Pawn (\"{pawn.Name?.ToStringShort}\") will drop its inventory items. Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
             }
+            else
+                DebugLog.Log($"[{Prefix}] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\". Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 
             return true;
         }
