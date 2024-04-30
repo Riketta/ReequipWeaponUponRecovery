@@ -38,6 +38,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugLog.cs" />
     <Compile Include="ModSettings.cs" />
     <Compile Include="HarmonyLog.cs" />
     <Compile Include="GlobalState.cs" />
