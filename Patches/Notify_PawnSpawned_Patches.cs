@@ -19,7 +19,7 @@ namespace ReequipWeaponUponRecovery.Patches
         private const string Prefix = "Pawn_EquipmentTracker.Notify_PawnSpawned";
 
         [HarmonyPrefix]
-        public static bool Notify_PawnSpawned(Pawn_EquipmentTracker __instance)
+        public static bool Notify_PawnSpawnedPrefix(Pawn_EquipmentTracker __instance)
         {
             Pawn pawn = __instance.pawn;
             if (pawn is null)
@@ -31,6 +31,12 @@ namespace ReequipWeaponUponRecovery.Patches
             GlobalState.CanSkipNextCallOfDropAllEquipment = true;
 
             return true;
+        }
+
+        [HarmonyPostfix]
+        public static void Notify_PawnSpawnedPostfix()
+        {
+            GlobalState.CanSkipNextCallOfDropAllEquipment = false;
         }
     }
 }

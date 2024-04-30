@@ -21,7 +21,7 @@ namespace ReequipWeaponUponRecovery.Patches
         private const string Prefix = "Pawn.DropAndForbidEverything";
 
         [HarmonyPrefix]
-        public static bool DropAndForbidEverything(Pawn __instance, ref bool keepInventoryAndEquipmentIfInBed, ref bool rememberPrimary)
+        public static bool DropAndForbidEverythingPrefix(Pawn __instance, ref bool keepInventoryAndEquipmentIfInBed, ref bool rememberPrimary)
         {
             var pawn = __instance;
             if (pawn is null)
@@ -33,6 +33,13 @@ namespace ReequipWeaponUponRecovery.Patches
             GlobalState.CanSkipNextCallOfDropDropAllNearPawn = true;
 
             return true;
+        }
+
+        [HarmonyPostfix]
+        public static void DropAndForbidEverythingPostfix()
+        {
+            GlobalState.CanSkipNextCallOfDropAllEquipment = false;
+            GlobalState.CanSkipNextCallOfDropDropAllNearPawn = false;
         }
     }
 }
