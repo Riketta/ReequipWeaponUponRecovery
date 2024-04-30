@@ -27,7 +27,7 @@ namespace ReequipWeaponUponRecovery.Patches
             HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
             HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
-            DebugLog.DumpStackTrace();
+            HarmonyLog.DumpStackTrace();
 #endif
 
             if (GlobalState.CanSkipNextCallOfDropDropAllNearPawn)

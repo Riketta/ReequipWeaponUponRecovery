@@ -29,7 +29,7 @@ namespace ReequipWeaponUponRecovery.Patches
             HarmonyLog.Log($"[{Prefix}] Forbid: {forbid}; Remember Primary: {rememberPrimary}.");
             HarmonyLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
-            DebugLog.DumpStackTrace();
+            HarmonyLog.DumpStackTrace();
 #endif
 
             if (GlobalState.CanSkipNextCallOfDropAllEquipment)

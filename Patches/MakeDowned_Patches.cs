@@ -24,7 +24,7 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Primary: {pawn.equipment?.Primary?.ToStringSafe()}; PrimaryEq: {pawn.equipment?.PrimaryEq?.ToStringSafe()}; Spawned: {pawn.Spawned}.");
+            HarmonyLog.Log($"[{Prefix}] Pawn: \"{pawn.Name}\"; Primary: {pawn.equipment?.Primary?.ToStringSafe()}; PrimaryEq: {pawn.equipment?.PrimaryEq?.ToStringSafe()}; Spawned: {pawn.Spawned}.");
 
             return true;
         }
