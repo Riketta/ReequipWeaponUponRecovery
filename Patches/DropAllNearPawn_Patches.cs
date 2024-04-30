@@ -26,32 +26,34 @@ namespace ReequipWeaponUponRecovery.Patches
 
             try
             {
-            DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
+                string pawnName = pawn.Name is null ? pawn.ThingID : pawn.Name.ToStringShort;
+                DebugLog.Log($"[{Prefix}] > Pawn: \"{pawnName}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+                DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
-            HarmonyLog.DumpStackTrace();
+                HarmonyLog.DumpStackTrace();
 #endif
 
-            if (GlobalState.CanSkipNextCallOfDropDropAllNearPawn)
-            {
-                GlobalState.CanSkipNextCallOfDropDropAllNearPawn = false;
-
-                bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-
-                if (isColonist && GlobalState.ModSettings.KeepColonistsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
+                if (GlobalState.CanSkipNextCallOfDropDropAllNearPawn)
                 {
-                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Colonis (\"{pawn.Name?.ToStringShort}\") will keep its inventory.");
-                    return false;
-                }
-                else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
-                {
-                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Non-player's pawn (\"{pawn.Name?.ToStringShort}\") will keep its inventory.");
-                    return false;
+                    GlobalState.CanSkipNextCallOfDropDropAllNearPawn = false;
+
+                    bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
+
+                    if (isColonist && GlobalState.ModSettings.KeepColonistsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
+                    {
+                        DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Colonis (\"{pawnName}\") will keep its inventory.");
+                        return false;
+                    }
+                    else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsInventory && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                    {
+                        DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Non-player's pawn (\"{pawnName}\") will keep its inventory.");
+                        return false;
+                    }
+                    else
+                        DebugLog.Log($"[{Prefix}] [+] Original method will be executed. Pawn (\"{pawnName}\") will drop its inventory items.");
                 }
                 else
-                    DebugLog.Log($"[{Prefix}] [+] Original method will be executed. Pawn (\"{pawn.Name?.ToStringShort}\") will drop its inventory items.");
-            }
-            else
-                DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\".");
+                    DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawnName}\".");
             }
             catch (Exception ex)
             {

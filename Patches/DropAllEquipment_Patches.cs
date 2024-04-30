@@ -27,32 +27,34 @@ namespace ReequipWeaponUponRecovery.Patches
 
             try
             {
-            DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
+                string pawnName = pawn.Name is null ? pawn.ThingID : pawn.Name.ToStringShort;
+                DebugLog.Log($"[{Prefix}] > Pawn: \"{pawnName}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+                DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
-            HarmonyLog.DumpStackTrace();
+                HarmonyLog.DumpStackTrace();
 #endif
 
-            if (GlobalState.CanSkipNextCallOfDropAllEquipment)
-            {
-                GlobalState.CanSkipNextCallOfDropAllEquipment = false;
-
-                bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
-
-                if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
+                if (GlobalState.CanSkipNextCallOfDropAllEquipment)
                 {
-                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Colonis (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
-                    return false;
-                }
-                else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
-                {
-                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Non-player's pawn (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
-                    return false;
+                    GlobalState.CanSkipNextCallOfDropAllEquipment = false;
+
+                    bool isColonist = pawn.IsPlayerControlled && pawn.Faction == Faction.OfPlayer; // TODO: get rid of "pawn.IsPlayerControlled" and keep just faction?
+
+                    if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
+                    {
+                        DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Colonis (\"{pawnName}\") will keep its weapon.");
+                        return false;
+                    }
+                    else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
+                    {
+                        DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Non-player's pawn (\"{pawnName}\") will keep its weapon.");
+                        return false;
+                    }
+                    else
+                        DebugLog.Log($"[{Prefix}] [+] Original method will be executed. Pawn (\"{pawnName}\") will drop its weapon.");
                 }
                 else
-                    DebugLog.Log($"[{Prefix}] [+] Original method will be executed. Pawn (\"{pawn.Name?.ToStringShort}\") will drop its weapon.");
-            }
-            else
-                DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\".");
+                    DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawnName}\".");
             }
             catch (Exception ex)
             {
