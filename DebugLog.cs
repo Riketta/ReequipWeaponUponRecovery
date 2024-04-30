@@ -11,8 +11,7 @@ namespace ReequipWeaponUponRecovery
     {
         public static void Log(string message)
         {
-            string timestamp = DateTime.Now.ToString("HH:mm:ss.fffffff");
-            FileLog.Log($"[{timestamp}] {message}");
+            HarmonyLog.Log(message);
             GlobalState.Logger?.Trace(message);
         }
     }
