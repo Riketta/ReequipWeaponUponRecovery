@@ -25,7 +25,8 @@ namespace ReequipWeaponUponRecovery.Patches
             if (pawn is null)
                 return true;
 
-            DebugLog.Log($"[{Prefix}] > Pawn: \"{pawn.Name}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+            try
+            {
             DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
             HarmonyLog.DumpStackTrace();
@@ -52,6 +53,11 @@ namespace ReequipWeaponUponRecovery.Patches
             }
             else
                 DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\".");
+            }
+            catch (Exception ex)
+            {
+                DebugLog.Log($"[{Prefix}] Exception: {ex}.");
+            }
 
             return true;
         }
