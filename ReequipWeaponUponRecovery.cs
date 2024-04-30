@@ -18,7 +18,7 @@ namespace ReequipWeaponUponRecovery
         public static readonly string PackageID = $"Riketta.{nameof(ReequipWeaponUponRecovery)}";
 
         protected override bool HarmonyAutoPatch => true;
-        public override string LogIdentifier => nameof(ReequipWeaponUponRecovery);
+        public override string LogIdentifier => new string(nameof(ReequipWeaponUponRecovery).Where(c => char.IsUpper(c)).ToArray());
         public override string SettingsIdentifier => nameof(ReequipWeaponUponRecovery);
 
         static ReequipWeaponUponRecovery() { }
