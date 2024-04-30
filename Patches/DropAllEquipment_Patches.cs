@@ -39,19 +39,19 @@ namespace ReequipWeaponUponRecovery.Patches
 
                 if (isColonist && GlobalState.ModSettings.KeepColonistsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfDeadColonists))
                 {
-                    DebugLog.Log($"[{Prefix}] Preventing original method execution! Colonis (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
+                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Colonis (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
                     return false;
                 }
                 else if (!isColonist && GlobalState.ModSettings.KeepOtherPawnsWeapons && (!pawn.Dead || GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns))
                 {
-                    DebugLog.Log($"[{Prefix}] Preventing original method execution! Non-player's pawn (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
+                    DebugLog.Log($"[{Prefix}] [-] Preventing original method execution! Non-player's pawn (\"{pawn.Name?.ToStringShort}\") will keep its weapon.");
                     return false;
                 }
                 else
-                    DebugLog.Log($"[{Prefix}] Original method will be executed. Pawn (\"{pawn.Name?.ToStringShort}\") will drop its weapon.");
+                    DebugLog.Log($"[{Prefix}] [+] Original method will be executed. Pawn (\"{pawn.Name?.ToStringShort}\") will drop its weapon.");
             }
             else
-                DebugLog.Log($"[{Prefix}] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\".");
+                DebugLog.Log($"[{Prefix}] [X] Original undisturbed method will be executed. Pawn: \"{pawn.Name?.ToStringShort}\".");
 
             return true;
         }
