@@ -83,6 +83,7 @@ namespace ReequipWeaponUponRecovery
                 true);
 
             Debug = settings.GetHandle(nameof(Debug), "Debug", string.Empty, false);
+            Debug.VisibilityPredicate = () => Prefs.DevMode;
         }
     }
 }
