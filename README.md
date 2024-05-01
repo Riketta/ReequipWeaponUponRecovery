@@ -11,3 +11,6 @@ There you can find separate options for the player's colonists, enemies, invento
 
 ## Why such a misleading name?
 I started this project with the intention of simply reimplementing existing mods and named it accordingly, but it ended up being implemented much differently.  
+
+## Steam Workshop
+https://steamcommunity.com/sharedfiles/filedetails/?id=3234461612.  
