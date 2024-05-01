@@ -10,6 +10,8 @@ namespace ReequipWeaponUponRecovery
 {
     internal class ModSettings
     {
+        public SettingHandle<bool> Debug;
+
         /// <summary>
         /// Keep weapons of player controlled pawns (colonists) with them on downed.
         /// </summary>
@@ -79,6 +81,8 @@ namespace ReequipWeaponUponRecovery
                 "Keep Weapons And Inventory Of Other Dead Pawns",
                 "Keep weapons and inventory (if according options toggled on) of non-player's pawns with them or drop everything on death. OP against tibal raids.",
                 true);
+
+            Debug = settings.GetHandle(nameof(Debug), "Debug", string.Empty, false);
         }
     }
 }
