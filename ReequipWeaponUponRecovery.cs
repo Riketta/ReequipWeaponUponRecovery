@@ -53,6 +53,9 @@ namespace ReequipWeaponUponRecovery
             Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsWeapons)} = {GlobalState.ModSettings.KeepOtherPawnsWeapons}.");
             Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepOtherPawnsInventory)} = {GlobalState.ModSettings.KeepOtherPawnsInventory}.");
             Logger.Trace($"> {nameof(GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns)} = {GlobalState.ModSettings.KeepWeaponsAndInventoryOfOtherDeadPawns}.");
+            Logger.Trace($"> {nameof(GlobalState.ModSettings.Debug)} = {GlobalState.ModSettings.Debug}.");
+            Logger.Trace($"> {nameof(GlobalState.Debug)} = {GlobalState.Debug}.");
+            Logger.Trace($"> {nameof(Prefs.DevMode)} = {Prefs.DevMode}.");
         }
     }
 }
