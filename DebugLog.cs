@@ -11,8 +11,11 @@ namespace ReequipWeaponUponRecovery
     {
         public static void Log(string message)
         {
-            HarmonyLog.Log(message);
-            GlobalState.Logger?.Trace(message);
+            if (GlobalState.Debug)
+            {
+                HarmonyLog.Log(message);
+                GlobalState.Logger?.Trace(message);
+            }
         }
     }
 }
