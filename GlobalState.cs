@@ -11,7 +11,7 @@ namespace ReequipWeaponUponRecovery
     {
         public static ModSettings ModSettings { get; set; }
 
-        public static bool Debug => ModSettings?.Debug ?? false;
+        public static bool Debug => ModSettings?.Debug ?? false && Verse.Prefs.DevMode;
 
         /// <summary>
         /// Mark that next DropAllEquipment call can be prevented if necessary.
