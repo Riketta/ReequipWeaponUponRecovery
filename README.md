@@ -1,7 +1,7 @@
 # Reequip Weapon Upon Recovery
 ![alt text](About/Preview.png)
 
-Keep weapon (and other inventory stuff for now) when downed and reequip it upon recovery.  
+Keep weapon and/or inventory items when a pawn is downed instead of throwing everything on the ground.  
 
 Successor of "Do Not Drop Weapon" and "Where Is My Weapon?" with better implementation.  
 
