@@ -28,7 +28,7 @@ namespace ReequipWeaponUponRecovery.Patches
             try
             {
                 string pawnName = pawn.Name is null ? pawn.ThingID : pawn.Name.ToStringShort;
-                DebugLog.Log($"[{Prefix}] > Pawn: \"{pawnName}\"; Weapon: {pawn.equipment?.Primary?.ToStringSafe()}; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
+                DebugLog.Log($"[{Prefix}] > Pawn: \"{pawnName}\"; Weapon: \"{pawn.equipment?.Primary?.ToStringSafe()}\"; Player controlled: {pawn.IsPlayerControlled}; Faction: {pawn.Faction?.Name}; Dead: {pawn.Dead}.");
                 DebugLog.Log($"[{Prefix}] Caller: {HarmonyLog.GetCallingClassAndMethodNames()}.");
 #if DEBUG
                 HarmonyLog.DumpStackTrace();
