@@ -33,7 +33,7 @@ namespace ReequipWeaponUponRecovery.Patches
 #if DEBUG
                 HarmonyLog.DumpStackTrace();
 #endif
-
+                // TODO: fix the case with weapons being dropped due to arm/torse (?) desctruction.
                 if (GlobalState.CanSkipNextCallOfDropAllEquipment)
                 {
                     GlobalState.CanSkipNextCallOfDropAllEquipment = false;
