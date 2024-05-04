@@ -33,7 +33,7 @@ namespace ReequipWeaponUponRecovery.Patches
 #if DEBUG
                 HarmonyLog.DumpStackTrace();
 #endif
-                // TODO: fix the case with weapons being dropped due to arm/torse (?) desctruction.
+                // TODO: fix the case with weapons being dropped due to manipulation equal to zero (e.g. no hands).
                 // TODO: fix the case with weapons being dropped due to death refusal.
                 if (GlobalState.CanSkipNextCallOfDropAllEquipment)
                 {
